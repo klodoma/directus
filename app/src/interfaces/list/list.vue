@@ -26,14 +26,9 @@
 							:template="templateWithDefaults"
 						/>
 						<div class="spacer" />
-						<list-select-menu
-							field="field"
-							@click.stop="null"
-							@edit="openItem(index)"
-              :delete="!disabled"
-							@delete="removeItem(element)"
-							@duplicate="duplicateItem(element, index)"
-						/>
+
+            <v-icon v-if="!disabled" clickable name="content_copy" :title="$t('duplicate')" @click.stop="duplicateItem(element, index)" />
+            <v-icon v-if="!disabled" clickable name="close" :title="$t('delete')" @click.stop="removeItem(element)" />
 					</v-list-item>
 				</template>
 			</draggable>
@@ -98,7 +93,6 @@ import { isEqual, sortBy } from 'lodash';
 import { computed, ref, toRefs } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Draggable from 'vuedraggable';
-import ListSelectMenu from '@/interfaces/list/list-select-menu.vue';
 
 const props = withDefaults(
 	defineProps<{
