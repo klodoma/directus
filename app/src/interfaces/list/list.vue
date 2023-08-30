@@ -246,9 +246,10 @@ function updateValues(index: number, updatedValues: any) {
 }
 
 function duplicateItem(item: Record<string, any>, index: number) {
-	if (value.value) {
-		internalValue.value.splice(index, 0, Object.assign({}, item));
-		emitValue(internalValue.value);
+	if (value.value && Array.isArray(internalValue.value)) {
+    const newValue = internalValue.value.slice();
+    newValue.splice(index, 0, Object.assign({}, item));
+		emitValue(newValue);
 	} else {
 		emitValue(null);
 	}
